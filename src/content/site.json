@@ -1,0 +1,51 @@
+{
+  "title": "Zhuangzhuang Gu",
+  "url": "https://illusionarydream.com",
+  "description": "Blogs, photos, and profile notes from Zhuangzhuang Gu.",
+  "author": "Zhuangzhuang Gu",
+  "email": "ZG5@email.sc.edu",
+  "navigation": [
+    {
+      "label": "Home",
+      "href": "index.html"
+    },
+    {
+      "label": "Blog",
+      "href": "index.php/blog/index.html"
+    },
+    {
+      "label": "Gallery",
+      "href": "index.php/gallery/index.html"
+    },
+    {
+      "label": "Profile",
+      "href": "index.php/contact/index.html"
+    }
+  ],
+  "home": {
+    "hero_title": "Blogs & Sharing",
+    "hero_subtitle": "",
+    "hero_image": "wp-content/uploads/2023/09/preview.jpg",
+    "primary_button": null,
+    "links_title": "Links",
+    "links": [
+      {
+        "label": "Blog",
+        "href": "index.php/blog/index.html",
+        "description": "Notes, tutorials, and research-related posts."
+      },
+      {
+        "label": "Gallery",
+        "href": "index.php/gallery/index.html",
+        "description": "Photo collections grouped by place."
+      },
+      {
+        "label": "Profile",
+        "href": "index.php/contact/index.html",
+        "description": "Education, research, publications, and contact details."
+      }
+    ],
+    "callout": "Thanks for visiting."
+  },
+  "footer": "Built as a maintainable static site from local content files."
+}

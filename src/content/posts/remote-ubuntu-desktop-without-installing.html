@@ -1,0 +1,65 @@
+---
+title: Remote Ubuntu Desktop Without Installing
+slug: remote-ubuntu-desktop-without-installing
+date: 2023-10-24
+path: index.php/2023/10/24/remote-ubuntu-desktop-without-installing/index.html
+categories: uncategorized
+excerpt: Goal: Cofigure personal computer with Ubuntu system to be connected remotely. Configuration in Ubuntu: System version: Ubuntu 20.04.5 LTS Check ip address: Connect to Ubuntu: I am using MacBook Pro. Possible Problems: Incompitible to connect Solution: Suggestion:
+---
+<h3>Goal:</h3>
+
+<p>Cofigure personal computer with Ubuntu system to be connected remotely.</p>
+
+<h3>Configuration in Ubuntu:</h3>
+
+<p>System version: Ubuntu 20.04.5 LTS</p>
+
+<ul>
+<li>Open setting -> Sharing</li>
+
+<li>Turn On Sharing button on the top of window</li>
+
+<li>Activate Screen Sharing</li>
+
+<li>Allow connections to control the screen</li>
+
+<li>Configrue a password</li>
+</ul>
+
+<figure><img src="wp-content/uploads/2023/10/image.png" alt=""></figure>
+
+<p>Check ip address:</p>
+
+<ul>
+<li>Open setting -> Network</li>
+
+<li>Remember the name of Ethernet which you are using.</li>
+
+<li>Open Ternimal: </li>
+</ul>
+
+<pre><code>ip a    #enter this command and find the ip address of your computer by Ethernet name</code></pre>
+
+<h3>Connect to Ubuntu:</h3>
+
+<p>I am using MacBook Pro.</p>
+
+<ul>
+<li>Open Spotlight -> enter vnc://your_ip_address</li>
+
+<li>Click the remote connection software</li>
+
+<li>Enter password you created</li>
+</ul>
+
+<p><strong>Possible Problems:</strong> Incompitible to connect</p>
+
+<p>Solution:</p>
+
+<pre><code>gsettings set org.gnome.Vino require-encryption false    #configure your ubuntu system with this line</code></pre>
+
+<h3>Suggestion:</h3>
+
+<ol>
+<li>If your Ubuntu computer is using campus network and your another PC is using home network, before you connect to remote desktop you should connect to campus network using VPN.</li>
+</ol>

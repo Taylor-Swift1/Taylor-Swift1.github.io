@@ -1,0 +1,50 @@
+[
+  {
+    "id": 8,
+    "name": "Code",
+    "slug": "code",
+    "description": ""
+  },
+  {
+    "id": 7,
+    "name": "Deep Learning",
+    "slug": "deep-learning",
+    "description": ""
+  },
+  {
+    "id": 11,
+    "name": "Hardware Configuration",
+    "slug": "hardware-configuration",
+    "description": ""
+  },
+  {
+    "id": 6,
+    "name": "HCI",
+    "slug": "hci",
+    "description": ""
+  },
+  {
+    "id": 9,
+    "name": "HPC",
+    "slug": "hpc",
+    "description": ""
+  },
+  {
+    "id": 10,
+    "name": "Linux",
+    "slug": "linux",
+    "description": ""
+  },
+  {
+    "id": 5,
+    "name": "Shop",
+    "slug": "shop",
+    "description": ""
+  },
+  {
+    "id": 1,
+    "name": "Uncategorized",
+    "slug": "uncategorized",
+    "description": ""
+  }
+]
