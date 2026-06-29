@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HPC &#8211; Blog</title>
+	<atom:link href="index.html" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>IllusionaryDream</description>
+	<lastBuildDate>Mon, 25 Sep 2023 20:36:25 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.0</generator>
+	<item>
+		<title>High Performance Computing (HPC)</title>
+		<link>/index.php/2023/09/06/high-performance-computing-hpc/</link>
+					<comments>/index.php/2023/09/06/high-performance-computing-hpc/#comments</comments>
+		
+		<dc:creator><![CDATA[zg5]]></dc:creator>
+		<pubDate>Wed, 06 Sep 2023 23:01:25 +0000</pubDate>
+				<category><![CDATA[HPC]]></category>
+		<guid isPermaLink="false">https://illusionarydream.com/?p=80</guid>
+
+					<description><![CDATA[1. Overview The University of South Carolina High Performance Computing (HPC) clusters are available to researchers requiring specialized hardware resources for computational research applications.&#160; For more information:https://sc.edu/about/offices_and_divisions/division_of_information_technology/rc/hpc_clusters/index.php Here are some basic steps for you to successfully train your model on HPC. 2. How to use HPC &#8212; Apply account Submit your request here. And, after &#8230;<p class="read-more"> <a class="" href="../../../2023/09/06/high-performance-computing-hpc/index.html"> <span class="screen-reader-text">High Performance Computing (HPC)</span> Read More &#187;</a></p>]]></description>
+										<content:encoded><![CDATA[
+<h3 class="wp-block-heading">1. Overview</h3>
+
+
+
+<p class="wp-block-paragraph">The University of South Carolina High Performance Computing (HPC) clusters are available to researchers requiring specialized hardware resources for computational research applications.&nbsp;</p>
+
+
+
+<p class="wp-block-paragraph">For more information:<a href="https://sc.edu/about/offices_and_divisions/division_of_information_technology/rc/hpc_clusters/index.php">https://sc.edu/about/offices_and_divisions/division_of_information_technology/rc/hpc_clusters/index.php</a></p>
+
+
+
+<p class="wp-block-paragraph">Here are some basic steps for you to successfully train your model on HPC.</p>
+
+
+
+<h3 class="wp-block-heading">2. How to use HPC</h3>
+
+
+
+<h4 class="wp-block-heading">&#8212; Apply account</h4>
+
+
+
+<p class="wp-block-paragraph">Submit your request <a href="https://sc.edu/about/offices_and_divisions/division_of_information_technology/rc/account_request/index.php">here</a>. And, after several hours (maybe several days), you will receive some emails about your request. Normally, you can see your account information in those emails. <strong>I strongly suggest you to carefully read these emails.</strong> (<mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-ast-global-color-1-color">PLEASE CAREFULLY READ</mark>)</p>
+
+
+
+<h4 class="wp-block-heading">&#8212; Configure your environment</h4>
+
+
+
+<p class="wp-block-paragraph">Here are some official<a href="https://uofsc-rc.github.io/sys-tutorial/getting-started"> instrudctions</a>. <strong>Please read them carefully before you start to use</strong>. It won&#8217;t cost you too much time.</p>
+
+
+
+<ul class="wp-block-list">
+<li>login to server</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">You can use any tools for ssh connection. Please replace the user information in following code.</p>
+
+
+
+<pre class="wp-block-code"><code>ssh -p 222 username@login.rci.sc.edu</code></pre>
+
+
+
+<p class="wp-block-paragraph"><strong>Notes:</strong> very very important thing is <strong><mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-ast-global-color-1-color">DO NOT DIRECTLY RUN YOUR CODE ON THIS SERVER. EVERTHING YOU WANT TO RUN OR TEST SHOULD BE SUBMITTED TO GPU CLUSTER USING SBATCH!!!</mark></strong></p>
+
+
+
+<ul class="wp-block-list">
+<li>Load module</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Read <a href="https://uofsc-rc.github.io/sys-tutorial/module">instructions</a> here to famillar with loading modules.</p>
+
+
+
+<p class="wp-block-paragraph">Loading anaconda module</p>
+
+
+
+<pre class="wp-block-code"><code>module load python3/anaconda/2020.02</code></pre>
+
+
+
+<p class="wp-block-paragraph"><strong>Notes:</strong> after you successfully load the conda, please change the working and tem path to your /work/username folder, since you only have 25 GB space under /home/username.</p>
+
+
+
+<ul class="wp-block-list">
+<li>configure your personal environment</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">I thought everyone should be very famillar with this part. You can use </p>
+
+
+
+<pre class="wp-block-code"><code>conda create xxxx</code></pre>
+
+
+
+<p class="wp-block-paragraph">to build your configuration. Then, use pip to install necessary lib.</p>
+
+
+
+<h4 class="wp-block-heading">&#8212; Submit your task</h4>
+
+
+
+<ul class="wp-block-list">
+<li>build a script</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">create a test.sh file and write down command like following. For instructions, read <a href="https://uofsc-rc.github.io/sys-tutorial/slurm-scheduler">this </a></p>
+
+
+
+<pre class="wp-block-code"><code>#!/bin/sh
+#SBATCH --job-name=finetune_1
+#SBATCH -N 1
+#SBATCH -n 28 
+#SBATCH --gres=gpu:1 ## Run on 1 GPU
+#SBATCH --output ./log/finetune%j.out
+#SBATCH --error ./log/finetune%j.err
+#SBATCH -p gpu-v100-16gb
+
+##Load your modules and run code here
+date
+
+module load cuda/11.3
+module load python3/anaconda/2020.02
+nvidia-smi
+source activate mmbox10.1
+python --version
+python ./finetune.py &gt; ./log/finetune.txt
+conda deactivate</code></pre>
+
+
+
+<ul class="wp-block-list">
+<li>submit</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">submit your taks by:</p>
+
+
+
+<pre class="wp-block-code"><code>sbatch test.sh</code></pre>
+
+
+
+<h3 class="wp-block-heading">3. Performance</h3>
+
+
+
+<p class="wp-block-paragraph">The GPU loaded in HPC clusters is Tesla v100. According to my experience, the performance is almost same with our lab&#8217; GPU server.</p>
+
+
+
+<p class="wp-block-paragraph">But, for a shared platform, sometimes you need to wait for a long time to exacute your code.</p>
+
+
+
+<h3 class="wp-block-heading">4. Suggestion</h3>
+
+
+
+<h4 class="wp-block-heading">&#8212; Storage and Priority</h4>
+
+
+
+<p class="wp-block-paragraph">If your storage is not enough (dataset may take lots of space), you can send an email to the person who gives you the account information with your situation. Hopefully, you can get extra 1 TB (I am in this situation).</p>
+
+
+
+<p class="wp-block-paragraph">Different users have different priorities. If you want to get your code exacuted faster, you can send an email for high priority.</p>
+
+
+
+<h4 class="wp-block-heading">&#8212; Waiting List</h4>
+
+
+
+<p class="wp-block-paragraph">Before you submit your job, you can check the waiting list and available nodes:</p>
+
+
+
+<pre class="wp-block-code"><code>sinfo
+squeue xxx # check the instructions I mentioned</code></pre>
+
+
+
+<p class="wp-block-paragraph">Perhaps, you can find available nodes.</p>
+
+
+
+<h3 class="wp-block-heading">5. Possible Problems</h3>
+
+
+
+<p class="wp-block-paragraph">Sorry about this section. I have written a lot of problem I encountered with, but my server got into troubles and lost everything.</p>
+
+
+
+<p class="wp-block-paragraph">If you encounted with any problem, feel free to ask me solutions.</p>
+
+
+
+<p class="wp-block-paragraph">And, if you solved these problems, welcome to leave your comments here. That will help others a lot. Thanks!</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/index.php/2023/09/06/high-performance-computing-hpc/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
