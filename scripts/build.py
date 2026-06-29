@@ -363,38 +363,90 @@ def render_post(site, post, categories):
     return render_page(site, post["path"], post["title"], body, active="blog", description=post.get("excerpt"))
 
 
+def safe_json(data):
+    return (
+        json.dumps(data, ensure_ascii=False)
+        .replace("&", "\\u0026")
+        .replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+    )
+
+
+def gallery_item_html(image):
+    return """          <a class="gallery-item" href="{full_src}">
+            <img src="{src}" alt="{alt}" loading="lazy" decoding="async">
+          </a>""".format(
+        full_src=esc(image["fullSrc"]),
+        src=esc(image["src"]),
+        alt=esc(image.get("alt", "")),
+    )
+
+
 def render_gallery(site, sections):
     relative_path = "index.php/gallery/index.html"
     prefix = rel_prefix(relative_path)
-    nav = []
-    section_html = []
-    for section in sections:
+    tabs = []
+    gallery_payload = []
+
+    for index, section in enumerate(sections):
         section_id = slugify(section["title"])
-        nav.append('<a href="#{}">{}</a>'.format(esc(section_id), esc(section["title"])))
         images = []
         for image in section.get("images", []):
-            src = site_link(image["src"], prefix)
-            full_src = site_link(full_size_image(image["src"]), prefix)
-            images.append(
-                """          <a class="gallery-item" href="{full_src}">
-            <img src="{src}" alt="{alt}" loading="lazy">
-          </a>""".format(full_src=esc(full_src), src=esc(src), alt=esc(image.get("alt", "")))
+            images.append({
+                "src": site_link(image["src"], prefix),
+                "fullSrc": site_link(full_size_image(image["src"]), prefix),
+                "alt": image.get("alt", ""),
+            })
+        gallery_payload.append({
+            "id": section_id,
+            "title": section["title"],
+            "images": images,
+        })
+        active_class = " is-active" if index == 0 else ""
+        selected = "true" if index == 0 else "false"
+        tab_index = "0" if index == 0 else "-1"
+        tabs.append(
+            '<button class="gallery-tab{active}" type="button" role="tab" '
+            'aria-selected="{selected}" aria-controls="gallery-panel" '
+            'tabindex="{tab_index}" data-gallery-tab="{index}">{title}</button>'.format(
+                active=active_class,
+                selected=selected,
+                tab_index=tab_index,
+                index=index,
+                title=esc(section["title"]),
             )
-        grid = '\n        <div class="gallery-grid">\n{}\n        </div>'.format("\n".join(images)) if images else ""
-        section_html.append(
-            """      <section class="gallery-section" id="{id}">
-        <h2>{title}</h2>{grid}
-      </section>""".format(id=esc(section_id), title=esc(section["title"]), grid=grid)
         )
-    body = """  <section class="section">
+
+    first_section = gallery_payload[0] if gallery_payload else {"title": "Gallery", "images": []}
+    first_grid = "\n".join(gallery_item_html(image) for image in first_section["images"])
+    first_count = "{} photo{}".format(
+        len(first_section["images"]),
+        "" if len(first_section["images"]) == 1 else "s",
+    )
+    body = """  <section class="section gallery-browser" data-gallery-browser>
     <div class="container">
-      <nav class="anchor-list" aria-label="Gallery sections">
-        {nav}
+      <nav class="gallery-tabs" aria-label="Gallery sections" role="tablist">
+        {tabs}
       </nav>
-{sections}
+      <section class="gallery-section" id="gallery-panel" role="tabpanel" aria-live="polite">
+        <div class="gallery-section-head">
+          <h2 data-gallery-title>{title}</h2>
+          <p data-gallery-count>{count}</p>
+        </div>
+        <div class="gallery-grid" data-gallery-grid>
+{grid}
+        </div>
+      </section>
+      <script type="application/json" id="gallery-data">{gallery_data}</script>
     </div>
   </section>
-""".format(nav="\n        ".join(nav), sections="\n".join(section_html))
+""".format(
+        tabs="\n        ".join(tabs),
+        title=esc(first_section["title"]),
+        count=esc(first_count),
+        grid=first_grid,
+        gallery_data=safe_json(gallery_payload),
+    )
     return render_page(site, relative_path, "Gallery", body, active="gallery", page_class="gallery-page")
 
 
