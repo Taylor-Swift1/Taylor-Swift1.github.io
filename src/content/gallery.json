@@ -34,7 +34,12 @@
         "src": "wp-content/uploads/2023/09/DSC00573-scaled.jpg",
         "alt": ""
       }
-    ]
+    ],
+    "groups": [
+      "Mediterranean"
+    ],
+    "highlight": true,
+    "highlightOrder": 1
   },
   {
     "title": "Myrtle Beach, South Carolina, USA",
@@ -59,6 +64,9 @@
         "src": "wp-content/uploads/2023/09/DSC00486-scaled.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Carolinas"
     ]
   },
   {
@@ -152,6 +160,9 @@
         "src": "wp-content/uploads/2023/10/DSC00366-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US"
     ]
   },
   {
@@ -205,6 +216,9 @@
         "src": "wp-content/uploads/2023/09/DSC00563-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Mid US"
     ]
   },
   {
@@ -242,6 +256,9 @@
         "src": "wp-content/uploads/2023/10/IMG_9056-scaled-e1696529271206-768x1024.jpeg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Carolinas"
     ]
   },
   {
@@ -315,6 +332,11 @@
         "src": "wp-content/uploads/2026/02/DSC04855-scaled.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Carolinas",
+      "Mid US",
+      "National Parks"
     ]
   },
   {
@@ -356,6 +378,9 @@
         "src": "wp-content/uploads/2023/09/DSC00922-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Carolinas"
     ]
   },
   {
@@ -381,6 +406,9 @@
         "src": "wp-content/uploads/2023/10/IMG_1086-scaled-e1697732338315-768x1024.jpeg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Carolinas"
     ]
   },
   {
@@ -398,6 +426,9 @@
         "src": "wp-content/uploads/2023/10/DSC00828-scaled.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Carolinas"
     ]
   },
   {
@@ -439,7 +470,12 @@
         "src": "wp-content/uploads/2023/10/IMG_3707-1024x768.jpeg",
         "alt": ""
       }
-    ]
+    ],
+    "groups": [
+      "Carolinas"
+    ],
+    "highlight": true,
+    "highlightOrder": 2
   },
   {
     "title": "Atlanta, Georgia, USA",
@@ -476,6 +512,9 @@
         "src": "wp-content/uploads/2023/10/IMG_0201-1024x768.jpeg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US"
     ]
   },
   {
@@ -505,6 +544,9 @@
         "src": "wp-content/uploads/2023/10/DSC00412-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US"
     ]
   },
   {
@@ -526,6 +568,9 @@
         "src": "wp-content/uploads/2024/01/DSC01075-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Carolinas"
     ]
   },
   {
@@ -555,6 +600,9 @@
         "src": "wp-content/uploads/2024/01/IMG_1874-1024x768.jpeg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US"
     ]
   },
   {
@@ -568,6 +616,9 @@
         "src": "wp-content/uploads/2024/01/DSC01154-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US"
     ]
   },
   {
@@ -605,7 +656,12 @@
         "src": "wp-content/uploads/2024/01/IMG_1888-1024x768.jpeg",
         "alt": ""
       }
-    ]
+    ],
+    "groups": [
+      "East US"
+    ],
+    "highlight": true,
+    "highlightOrder": 4
   },
   {
     "title": "Everglades National Park, Florida, USA",
@@ -650,6 +706,10 @@
         "src": "wp-content/uploads/2024/01/DSC01484-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US",
+      "National Parks"
     ]
   },
   {
@@ -691,7 +751,12 @@
         "src": "wp-content/uploads/2024/01/DSC01436-1024x683.jpg",
         "alt": ""
       }
-    ]
+    ],
+    "groups": [
+      "East US"
+    ],
+    "highlight": true,
+    "highlightOrder": 5
   },
   {
     "title": "Siesta Key Beach, Florida, USA",
@@ -720,6 +785,9 @@
         "src": "wp-content/uploads/2024/01/DSC01515-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US"
     ]
   },
   {
@@ -737,6 +805,9 @@
         "src": "wp-content/uploads/2024/01/DSC01536-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US"
     ]
   },
   {
@@ -758,6 +829,9 @@
         "src": "wp-content/uploads/2024/01/DSC01556-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US"
     ]
   },
   {
@@ -827,7 +901,12 @@
         "src": "wp-content/uploads/2024/01/DSC02000-1024x683.jpg",
         "alt": ""
       }
-    ]
+    ],
+    "groups": [
+      "East US"
+    ],
+    "highlight": true,
+    "highlightOrder": 3
   },
   {
     "title": "Chattanooga, TN, USA",
@@ -856,6 +935,9 @@
         "src": "wp-content/uploads/2026/02/DSC02773-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "Mid US"
     ]
   },
   {
@@ -897,10 +979,99 @@
         "src": "wp-content/uploads/2026/02/DSC03808-1024x683.jpg",
         "alt": ""
       }
+    ],
+    "groups": [
+      "East US",
+      "National Parks"
     ]
   },
   {
     "title": "New York, USA",
-    "images": []
+    "images": [],
+    "groups": [
+      "East US"
+    ]
+  },
+  {
+    "title": "San Francisco, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Half Moon Bay, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Bay Area, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Monterey, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Santa Barbara, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Santa Monica, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "San Diego, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Los Angeles, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Sequoia & Kings Canyon National Parks, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US",
+      "National Parks"
+    ]
+  },
+  {
+    "title": "Yosemite National Park, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US",
+      "National Parks"
+    ]
   }
 ]

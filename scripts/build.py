@@ -13,6 +13,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "src" / "content"
 POSTS_DIR = CONTENT / "posts"
+GALLERY_GROUP_ORDER = [
+    "Mediterranean",
+    "Carolinas",
+    "California",
+    "East US",
+    "West US",
+    "Mid US",
+    "National Parks",
+]
 
 URL_ATTR_RE = re.compile(r'(<(?:a|img)\b[^>]*\s(?:href|src)=")([^"]+)(")', re.I)
 IMAGE_SIZE_RE = re.compile(r"-(\d+)x(\d+)$")
@@ -382,14 +391,67 @@ def gallery_item_html(image):
     )
 
 
+def gallery_destination_card(section, index, is_active=False):
+    images = section.get("images", [])
+    cover_src = section.get("coverSrc", "")
+    active_class = " is-active" if is_active else ""
+    empty_class = " is-empty" if not cover_src else ""
+    pressed = "true" if is_active else "false"
+    count = "{} photo{}".format(len(images), "" if len(images) == 1 else "s")
+    media = ""
+
+    if cover_src:
+        media = '<img src="{}" alt="" loading="lazy" decoding="async">'.format(esc(cover_src))
+    else:
+        words = re.findall(r"[A-Za-z0-9]+", section["title"])
+        initials = "".join(word[0] for word in words[:2]).upper() or "G"
+        media = '<span class="gallery-destination-initials">{}</span>'.format(esc(initials))
+
+    return """          <button class="gallery-destination{active}{empty}" type="button" aria-pressed="{pressed}" data-gallery-section="{index}">
+            {media}
+            <span class="gallery-destination-content">
+              <span class="gallery-destination-title">{title}</span>
+              <span class="gallery-destination-count">{count}</span>
+            </span>
+          </button>""".format(
+        active=active_class,
+        empty=empty_class,
+        pressed=pressed,
+        index=index,
+        media=media,
+        title=esc(section["title"]),
+        count=esc(count),
+    )
+
+
+def gallery_section_groups(section):
+    groups = section.get("groups")
+    if isinstance(groups, list):
+        cleaned = [str(group).strip() for group in groups if str(group).strip()]
+    else:
+        cleaned = [str(section.get("group", "Other")).strip()]
+
+    deduped = []
+    for group in cleaned:
+        if group not in deduped:
+            deduped.append(group)
+    return deduped or ["Other"]
+
+
 def render_gallery(site, sections):
     relative_path = "index.php/gallery/index.html"
     prefix = rel_prefix(relative_path)
-    tabs = []
+    group_counts = defaultdict(int)
     gallery_payload = []
+    discovered_groups = []
 
     for index, section in enumerate(sections):
         section_id = slugify(section["title"])
+        section_groups = gallery_section_groups(section)
+        for group in section_groups:
+            if group not in discovered_groups:
+                discovered_groups.append(group)
+            group_counts[group] += 1
         images = []
         for image in section.get("images", []):
             images.append({
@@ -397,27 +459,63 @@ def render_gallery(site, sections):
                 "fullSrc": site_link(full_size_image(image["src"]), prefix),
                 "alt": image.get("alt", ""),
             })
+        cover_src = images[0]["src"] if images else ""
         gallery_payload.append({
             "id": section_id,
             "title": section["title"],
+            "groups": section_groups,
+            "highlight": bool(section.get("highlight")),
+            "highlightOrder": section.get("highlightOrder"),
+            "coverSrc": cover_src,
             "images": images,
         })
-        active_class = " is-active" if index == 0 else ""
-        selected = "true" if index == 0 else "false"
-        tab_index = "0" if index == 0 else "-1"
-        tabs.append(
-            '<button class="gallery-tab{active}" type="button" role="tab" '
-            'aria-selected="{selected}" aria-controls="gallery-panel" '
-            'tabindex="{tab_index}" data-gallery-tab="{index}">{title}</button>'.format(
-                active=active_class,
-                selected=selected,
-                tab_index=tab_index,
-                index=index,
-                title=esc(section["title"]),
+
+    groups = [group for group in GALLERY_GROUP_ORDER if group in discovered_groups]
+    groups.extend(group for group in discovered_groups if group not in groups)
+    highlight_indices = [
+        index for index, section in enumerate(gallery_payload) if section.get("highlight")
+    ]
+    highlight_indices.sort(
+        key=lambda index: (
+            gallery_payload[index].get("highlightOrder") is None,
+            gallery_payload[index].get("highlightOrder") or index,
+            index,
+        )
+    )
+
+    if not highlight_indices:
+        seen_groups = set()
+        for index, section in enumerate(gallery_payload):
+            first_group = section.get("groups", ["Other"])[0]
+            if first_group in seen_groups:
+                continue
+            seen_groups.add(first_group)
+            highlight_indices.append(index)
+
+    group_buttons = [
+        '<button class="gallery-group is-active" type="button" '
+        'aria-pressed="true" data-gallery-group="__highlights">'
+        'Highlights<span>{}</span></button>'.format(esc(len(highlight_indices)))
+    ]
+    for group in groups:
+        group_buttons.append(
+            '<button class="gallery-group{active}" type="button" '
+            'aria-pressed="{pressed}" data-gallery-group="{group}">'
+            '{label}<span>{count}</span></button>'.format(
+                active="",
+                pressed="false",
+                group=esc(group),
+                label=esc(group),
+                count=esc(group_counts[group]),
             )
         )
 
-    first_section = gallery_payload[0] if gallery_payload else {"title": "Gallery", "images": []}
+    first_index = highlight_indices[0] if highlight_indices else 0
+    first_section = gallery_payload[first_index] if gallery_payload else {"title": "Gallery", "images": []}
+    first_destinations = "\n".join(
+        gallery_destination_card(gallery_payload[index], index, index == first_index)
+        for index in highlight_indices
+    )
     first_grid = "\n".join(gallery_item_html(image) for image in first_section["images"])
     first_count = "{} photo{}".format(
         len(first_section["images"]),
@@ -425,9 +523,14 @@ def render_gallery(site, sections):
     )
     body = """  <section class="section gallery-browser" data-gallery-browser>
     <div class="container">
-      <nav class="gallery-tabs" aria-label="Gallery sections" role="tablist">
-        {tabs}
-      </nav>
+      <div class="gallery-picker">
+        <nav class="gallery-groups" aria-label="Gallery regions">
+          {groups}
+        </nav>
+        <div class="gallery-destinations" aria-label="Gallery destinations" data-gallery-destinations>
+{destinations}
+        </div>
+      </div>
       <section class="gallery-section" id="gallery-panel" role="tabpanel" aria-live="polite">
         <div class="gallery-section-head">
           <h2 data-gallery-title>{title}</h2>
@@ -441,7 +544,8 @@ def render_gallery(site, sections):
     </div>
   </section>
 """.format(
-        tabs="\n        ".join(tabs),
+        groups="\n          ".join(group_buttons),
+        destinations=first_destinations,
         title=esc(first_section["title"]),
         count=esc(first_count),
         grid=first_grid,
