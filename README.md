@@ -21,6 +21,20 @@ python3 scripts/build.py
 
 The build writes the public HTML files, including `index.html`, blog pages, gallery, profile, category pages, archive pages, and RSS feeds.
 
+## Optimize Photos
+
+Check for large gallery images:
+
+```bash
+python3 scripts/optimize_images.py
+```
+
+Compress oversized images in place, keeping ignored backups in `.image-backups/`:
+
+```bash
+python3 scripts/optimize_images.py --apply
+```
+
 ## Preview
 
 Open `index.html` in a browser, or run:
