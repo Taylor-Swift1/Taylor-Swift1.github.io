@@ -13,6 +13,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "src" / "content"
 POSTS_DIR = CONTENT / "posts"
+GALLERY_PHOTOS_DIR = ROOT / "assets" / "photos"
+IMAGE_EXTENSIONS = {".gif", ".jpeg", ".jpg", ".png", ".webp"}
 GALLERY_GROUP_ORDER = [
     "Mediterranean",
     "Carolinas",
@@ -134,6 +136,62 @@ def strip_tags(value):
 def slugify(value):
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
     return slug or "section"
+
+
+def image_identity(path):
+    return (
+        str(path.parent.relative_to(ROOT)),
+        image_base(path.stem).lower(),
+        path.suffix.lower(),
+    )
+
+
+def gallery_image_files(folder):
+    if not folder.is_dir():
+        return []
+
+    grouped = defaultdict(list)
+    for path in folder.iterdir():
+        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS:
+            grouped[(image_base(path.stem).lower(), path.suffix.lower())].append(path)
+
+    selected = []
+    for candidates in grouped.values():
+        selected.append(
+            min(candidates, key=lambda candidate: (image_score(candidate), candidate.name.lower()))
+        )
+    return sorted(selected, key=lambda path: path.name.lower())
+
+
+def hydrate_gallery_sections(sections):
+    hydrated = []
+    for section in sections:
+        section = dict(section)
+        images = list(section.get("images", []))
+        seen = set()
+
+        for image in images:
+            src = image.get("src", "")
+            if not src or re.match(r"^[a-z][a-z0-9+.-]*:", src, re.I):
+                continue
+            path = ROOT / src
+            if path.exists():
+                seen.add(image_identity(path))
+
+        folder = GALLERY_PHOTOS_DIR / slugify(section["title"])
+        for path in gallery_image_files(folder):
+            identity = image_identity(path)
+            if identity in seen:
+                continue
+            images.append({
+                "src": str(path.relative_to(ROOT)),
+                "alt": "",
+            })
+            seen.add(identity)
+
+        section["images"] = images
+        hydrated.append(section)
+    return hydrated
 
 
 def format_date(value):
@@ -625,7 +683,7 @@ def build():
     categories_list = read_json(CONTENT / "categories.json")
     categories = {item["slug"]: item for item in categories_list}
     posts = load_posts()
-    gallery = read_json(CONTENT / "gallery.json")
+    gallery = hydrate_gallery_sections(read_json(CONTENT / "gallery.json"))
 
     write_file("index.html", render_home(site, posts, categories))
     write_file("index.php/blog/index.html", render_collection(site, "index.php/blog/index.html", "Blog", "Notes, tutorials, and research-related posts.", posts, categories, show_heading=False))

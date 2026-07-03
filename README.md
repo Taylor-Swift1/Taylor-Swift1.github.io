@@ -6,10 +6,10 @@ This site is generated from editable source files in `src/content`.
 
 - Site title, navigation, homepage text: `src/content/site.json`
 - Blog posts: one file per post in `src/content/posts/`
-- Gallery sections and image paths: `src/content/gallery.json`
+- Gallery sections, groups, and optional manual image paths: `src/content/gallery.json`
 - Profile page: `src/content/profile.html`
 
-Images can stay in `wp-content/uploads/`. Use paths like `wp-content/uploads/2024/04/photo.jpeg` in content files.
+Gallery photos live in `assets/photos/<destination>/`, grouped by trip/place. The build automatically scans each trip folder and adds image files to that gallery section. Empty planned-trip folders contain a `.gitkeep` placeholder so GitHub keeps the folder; remove it after adding real photos. Site and blog support images live in `assets/images/`. Use those relative paths in content files, for example `assets/photos/greece/photo.jpeg`.
 
 ## Rebuild
 
