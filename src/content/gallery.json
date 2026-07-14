@@ -941,6 +941,20 @@
     ]
   },
   {
+    "title": "Chicago, Illinois, USA",
+    "images": [],
+    "groups": [
+      "Mid US"
+    ]
+  },
+  {
+    "title": "Minneapolis, Minnesota, USA",
+    "images": [],
+    "groups": [
+      "Mid US"
+    ]
+  },
+  {
     "title": "Shenandoah National Park, USA",
     "images": [
       {
@@ -1018,6 +1032,14 @@
   },
   {
     "title": "Monterey, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Big Sur, California, USA",
     "images": [],
     "groups": [
       "California",
