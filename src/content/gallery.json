@@ -1031,6 +1031,14 @@
     ]
   },
   {
+    "title": "Santa Cruz, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
     "title": "Monterey, USA",
     "images": [],
     "groups": [
@@ -1072,6 +1080,14 @@
   },
   {
     "title": "Los Angeles, USA",
+    "images": [],
+    "groups": [
+      "California",
+      "West US"
+    ]
+  },
+  {
+    "title": "Lake Tahoe, USA",
     "images": [],
     "groups": [
       "California",
